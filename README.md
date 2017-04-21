@@ -165,5 +165,3 @@ As mentioned above, can be returned or thrown. They get wrapped by [Boom](https:
 ## TODO
 
 * One line is missing from code coverage!!!
-* Set up Travis?
-* Add those badges?
