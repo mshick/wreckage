@@ -67,7 +67,10 @@ const request = async function (method, uri, options = {}) {
       throw boom.create(
         response.statusCode,
         response.statusMessage,
-        response
+        {
+          ...response,
+          isResponseError: true
+        }
       );
     }
 
