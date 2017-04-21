@@ -1,0 +1,60 @@
+{
+  "name": "wreckage",
+  "version": "0.1.0",
+  "author": "Michael Shick <m@shick.us>",
+  "license": "MIT",
+  "description": "A convenient, modern request library built around Wreck. A fork of Wrecked.",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "build": "rimraf lib && babel src -d lib",
+    "prepublish": "npm run build",
+    "lint": "eslint src",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mshick/wreckage.git"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "keywords": [
+    "wreck",
+    "request",
+    "promise",
+    "async",
+    "get",
+    "post",
+    "patch",
+    "put",
+    "delete",
+    "http"
+  ],
+  "bugs": {
+    "url": "https://github.com/mshick/wreckage/issues"
+  },
+  "homepage": "https://github.com/mshick/wreckage#readme",
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  },
+  "dependencies": {
+    "boom": "^4.3.1",
+    "lodash.defaultsdeep": "^4.6.0",
+    "wreck": "^12.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "rimraf": "^2.6.1"
+  }
+}
