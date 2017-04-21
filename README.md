@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/mshick/wreckage.svg?branch=master)](https://travis-ci.org/mshick/wreckage)
 
+[![Coverage Status](https://coveralls.io/repos/github/mshick/wreckage/badge.svg?branch=master)](https://coveralls.io/github/mshick/wreckage?branch=master)
+
 A convenient, modern request library built around Wreck. A fork of [Wrecked](https://github.com/TylerGarlick/wrecked).
 
 ## Overview
