@@ -2,6 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/wreckage.svg)](https://badge.fury.io/js/wreckage)
 
+[![Build Status](https://travis-ci.org/mshick/wreckage.svg?branch=master)](https://travis-ci.org/mshick/wreckage)
+
 A convenient, modern request library built around Wreck. A fork of [Wrecked](https://github.com/TylerGarlick/wrecked).
 
 ## Overview
