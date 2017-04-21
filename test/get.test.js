@@ -41,7 +41,7 @@ test(`#get(url) that returns 200 with an object`, async t => {
   t.deepEqual(payload, USERS[0]);
 });
 
-test(`#get(url) maybe returns a malformed object?`, async t => {
+test(`#get(url) throws a malformed object`, async t => {
   const instance = wreckage.create({read: {json: 'force'}});
   try {
     await instance.get(`${BASE_URL}/users/malformed`);
@@ -58,4 +58,12 @@ test(`#request('GET', url) that returns 200 with an object`, async t => {
 test(`#get(url) that returns 200 with an array and query string params`, async t => {
   const {payload} = await t.context.get(`${BASE_URL}/users/search?isActive=true`);
   t.is(payload.length, USERS.length);
+});
+
+test(`#get(url) simulate a request error (no net connect)`, async t => {
+  try {
+    await t.context.get(`http://foo.test/users/malformed`);
+  } catch (err) {
+    t.regex(err.message, /Nock: Not allow net connect/);
+  }
 });

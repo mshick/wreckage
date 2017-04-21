@@ -35,6 +35,10 @@ server
   .reply(201, `{foo: 'bar'`);
 
 server
+  .get('/users/malformed2', () => true)
+  .reply(201, `{foo: 'bar'`);
+
+server
   .get('/users/bogus')
   .reply(404);
 
