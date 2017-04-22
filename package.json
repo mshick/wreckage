@@ -8,7 +8,7 @@
   "jsnext:main": "src/index.js",
   "scripts": {
     "build": "BABEL_ENV=production rimraf lib && babel src -d lib",
-    "prepublish": "npm run build",
+    "prepublish": "npm test && npm run build",
     "lint": "eslint src",
     "test": "nyc ava"
   },
@@ -17,7 +17,7 @@
     "url": "https://github.com/mshick/wreckage.git"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=4.0.0"
   },
   "keywords": [
     "wreck",
