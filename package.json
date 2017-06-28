@@ -42,22 +42,23 @@
     ]
   },
   "dependencies": {
-    "boom": "^4.3.1",
+    "babel-runtime": "^6.23.0",
+    "boom": "^5.1.0",
     "lodash.defaultsdeep": "^4.6.0",
-    "wreck": "^12.1.0"
+    "wreck": "^12.2.2"
   },
   "devDependencies": {
     "ava": "^0.19.1",
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
+    "babel-preset-env": "^1.5.2",
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.24.1",
-    "coveralls": "^2.13.0",
-    "eslint": "^3.19.0",
+    "coveralls": "^2.13.1",
+    "eslint": "^4.1.1",
     "eslint-config-xo-space": "^0.16.0",
     "nock": "^9.0.13",
-    "nyc": "^10.2.0",
+    "nyc": "^11.0.3",
     "rimraf": "^2.6.1"
   }
 }
