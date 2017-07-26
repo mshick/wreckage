@@ -27,8 +27,6 @@ const wreckage = {
     return request(method, uri, combine(options, this.defaults));
   },
   create(options = {}) {
-    // console.log('opts', options);
-    // console.log('opts2', combine(options, this.defaults));
     return Object.assign(
       {},
       this,

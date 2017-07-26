@@ -12,7 +12,9 @@ const wrapError = function (err, data) {
     return err;
   }
 
-  return boom.wrap(err, data.statusCode, data.statusMessage);
+  const statusCode = data.statusCode >= 400 ? data.statusCode : 500;
+
+  return boom.wrap(err, statusCode, data.statusMessage);
 };
 
 const request = async function (method, uri, options = {}) {
