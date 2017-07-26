@@ -46,7 +46,7 @@ test(`#get(url) throws a malformed object`, async t => {
   try {
     await instance.get(`${BASE_URL}/users/malformed`);
   } catch (err) {
-    t.regex(err.message, /Unexpected token f in JSON at position 1/);
+    t.regex(err.message, /Unexpected token f/);
   }
 });
 
