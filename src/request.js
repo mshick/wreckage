@@ -63,7 +63,12 @@ const request = async function (method, uri, options = {}) {
   try {
     const payload = await wreckRead(res, readOptions);
 
-    response.payload = payload;
+    if (readOptions.hash) {
+      response.payload = payload.payload;
+      response.hash = payload.hash;
+    } else {
+      response.payload = payload;
+    }
 
     if (validateStatus(response.statusCode) === false) {
       throw boom.create(

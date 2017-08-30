@@ -31,6 +31,14 @@ server
   .reply(200, USERS);
 
 server
+  .get('/users')
+  .reply(200, USERS);
+
+server
+  .get('/users')
+  .reply(200, USERS);
+
+server
   .get('/users/malformed', () => true)
   .reply(201, `{foo: 'bar'`);
 

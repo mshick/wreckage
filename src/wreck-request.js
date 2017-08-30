@@ -6,6 +6,7 @@ const wreckRequest = function (method, uri, options = {}) {
       if (err) {
         return reject(err);
       }
+
       return resolve(response);
     });
   });

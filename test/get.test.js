@@ -11,6 +11,20 @@ test(`#get(uri) that returns 200 with an array`, async t => {
   t.is(payload.length, USERS.length);
 });
 
+test(`#get(uri) that returns 200 with an array and a (default) sha1 hash`, async t => {
+  const client = wreckage.create({read: {hash: true}});
+  const {payload, hash} = await client.get(`${BASE_URL}/users`);
+  t.is(payload.length, USERS.length);
+  t.is(hash, 'a6e58a29617e93d5ad146dcd854b1ff24efa33db');
+});
+
+test(`#get(uri) that returns 200 with an array and a (custom) md5 hash`, async t => {
+  const client = wreckage.create({read: {hash: 'md5'}});
+  const {payload, hash} = await client.get(`${BASE_URL}/users`);
+  t.is(payload.length, USERS.length);
+  t.is(hash, '50bd17b2aede9c0c059faeb62e7e876c');
+});
+
 test(`#get(uri) that returns all response properties`, async t => {
   const result = await t.context.get(`${BASE_URL}/users/3`);
   t.is(typeof (result.config), 'object');
@@ -50,12 +64,6 @@ test(`#get(url) throws a malformed object`, async t => {
   }
 });
 
-test(`#request('GET', url) that returns 200 with an object`, async t => {
-  const response = await t.context.request('GET', `${BASE_URL}/users/2`);
-  const payload = await t.context.read(response);
-  t.deepEqual(payload, USERS[1]);
-});
-
 test(`#get(url) that returns 200 with an array and query string params`, async t => {
   const {payload} = await t.context.get(`${BASE_URL}/users/search?isActive=true`);
   t.is(payload.length, USERS.length);
@@ -67,4 +75,10 @@ test(`#get(url) simulate a request error (no net connect)`, async t => {
   } catch (err) {
     t.regex(err.message, /Nock: Not allow net connect/);
   }
+});
+
+test(`#request('GET', url) that returns 200 with an object`, async t => {
+  const response = await t.context.request('GET', `${BASE_URL}/users/2`);
+  const payload = await t.context.read(response);
+  t.deepEqual(payload, USERS[1]);
 });

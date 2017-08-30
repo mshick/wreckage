@@ -4,7 +4,8 @@ export default {
     redirects: 3
   },
   read: {
-    json: true
+    json: true,
+    hash: false
   },
   errorHandling: 'throw',
   validateStatus(statusCode) {

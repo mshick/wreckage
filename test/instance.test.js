@@ -29,7 +29,8 @@ test(`#create(options) overrides the defaults for it's instance`, t => {
       redirects: 5
     },
     read: {
-      json: true
+      json: true,
+      hash: false
     }
   };
 
