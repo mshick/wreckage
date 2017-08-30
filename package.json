@@ -1,6 +1,6 @@
 {
   "name": "wreckage",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Michael Shick <m@shick.us>",
   "license": "MIT",
   "description": "A convenient, modern request library built around Wreck. A fork of Wrecked.",
