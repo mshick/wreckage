@@ -51,7 +51,8 @@ test(`#get(url) throws a malformed object`, async t => {
 });
 
 test(`#request('GET', url) that returns 200 with an object`, async t => {
-  const {payload} = await t.context.request('GET', `${BASE_URL}/users/2`);
+  const response = await t.context.request('GET', `${BASE_URL}/users/2`);
+  const payload = await t.context.read(response);
   t.deepEqual(payload, USERS[1]);
 });
 
