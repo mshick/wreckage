@@ -10,8 +10,6 @@ const combine = function (options, defaults) {
 };
 
 const wreckage = {
-  wreckRequest,
-  wreckRead,
   get(uri, options = {}) {
     return request('GET', uri, combine(options, this.defaults));
   },
