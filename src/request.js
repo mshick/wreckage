@@ -1,9 +1,9 @@
 import boom from 'boom';
+import wreck from 'wreck';
+import read from './read';
 import defaults from './defaults';
-import wreckRead from './wreck-read';
-import wreckRequest from './wreck-request';
 
-const wrapError = function (err, data) {
+const wrapError = (err, data) => {
   if (!err.data) {
     Object.assign(err, {data});
   }
@@ -17,15 +17,13 @@ const wrapError = function (err, data) {
   return boom.wrap(err, statusCode, data.statusMessage);
 };
 
-const request = async function (method, uri, options = {}) {
+const request = async (method, uri, options = {}) => {
   const requestOptions = options.request || {};
   const readOptions = options.read || {};
   const validateStatus = options.validateStatus || defaults.validateStatus;
   const errorHandling = options.errorHandling || 'throw';
 
-  let res;
-
-  let response = {
+  let output = {
     config: {
       method,
       uri,
@@ -34,56 +32,41 @@ const request = async function (method, uri, options = {}) {
   };
 
   try {
-    res = await wreckRequest(method, uri, requestOptions);
+    const response = await wreck.request(method, uri, requestOptions);
 
-    const {statusCode, statusMessage, headers} = res;
+    const {statusCode, statusMessage, headers} = response;
 
-    response = {
-      ...response,
+    output = {
+      ...output,
       headers,
       statusCode,
       statusMessage
     };
-  } catch (err) {
-    response = {
-      statusCode: 400,
-      statusMessage: 'wreck request failed',
-      ...response
+
+    const payload = await read(response, readOptions);
+
+    output = {
+      ...output,
+      payload: payload.data,
+      hash: payload.hash
     };
 
-    const error = wrapError(err, response);
+    if (validateStatus(output.statusCode) === false) {
+      if (readOptions.json && Buffer.isBuffer(output.payload)) {
+        // Get some info on the error, even if it disobeys our expect response type
+        output.payload = output.payload.toString();
+      }
 
-    if (errorHandling === 'return') {
-      return {error};
-    }
-
-    throw error;
-  }
-
-  try {
-    const payload = await wreckRead(res, readOptions);
-
-    if (readOptions.hash) {
-      response.payload = payload.payload;
-      response.hash = payload.hash;
-    } else {
-      response.payload = payload;
-    }
-
-    if (validateStatus(response.statusCode) === false) {
       throw boom.create(
-        response.statusCode,
-        response.statusMessage,
-        {
-          ...response,
-          isResponseError: true
-        }
+        output.statusCode,
+        output.statusMessage,
+        output
       );
     }
 
-    return response;
+    return output;
   } catch (err) {
-    const error = wrapError(err, response);
+    const error = wrapError(err, output);
 
     if (errorHandling === 'return') {
       return {error};

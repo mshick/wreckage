@@ -1,11 +1,11 @@
+import wreck from 'wreck';
 import defaultsDeep from 'lodash.defaultsdeep';
 import defaults from './defaults';
-import wreckRequest from './wreck-request';
-import wreckRead from './wreck-read';
 import request from './request';
+import read from './read';
 import requestWithPayload from './request-with-payload';
 
-const combine = function (options, defaults) {
+const combine = (options, defaults) => {
   return defaultsDeep({}, options, defaults);
 };
 
@@ -27,11 +27,11 @@ const wreckage = {
   },
   request(method, uri, options = {}) {
     const combined = combine(options, this.defaults);
-    return wreckRequest(method, uri, combined.request || {});
+    return wreck.request(method, uri, combined.request || {});
   },
   read(response, options = {}) {
     const combined = combine(options, this.defaults);
-    return wreckRead(response, combined.read || {});
+    return read(response, combined.read || {});
   },
   create(options = {}) {
     return Object.assign(

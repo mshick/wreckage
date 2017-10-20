@@ -55,6 +55,10 @@ server
   .reply(500);
 
 server
+  .get('/users/text-error')
+  .reply(502, 'plain text error');
+
+server
   .get('/users/1')
   .reply(200, USERS[0]);
 

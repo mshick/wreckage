@@ -77,8 +77,16 @@ test(`#get(url) simulate a request error (no net connect)`, async t => {
   }
 });
 
+test(`#get(url) simulate a request error that returns plain text`, async t => {
+  try {
+    await t.context.get(`${BASE_URL}/users/text-error`);
+  } catch (err) {
+    t.is(err.data.payload, 'plain text error');
+  }
+});
+
 test(`#request('GET', url) that returns 200 with an object`, async t => {
   const response = await t.context.request('GET', `${BASE_URL}/users/2`);
   const payload = await t.context.read(response);
-  t.deepEqual(payload, USERS[1]);
+  t.deepEqual(payload.data, USERS[1]);
 });
