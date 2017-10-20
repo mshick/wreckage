@@ -6,26 +6,26 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/mshick/wreckage/badge.svg?branch=master)](https://coveralls.io/github/mshick/wreckage?branch=master)
 
-A convenient, modern request library built around Wreck. A fork of [Wrecked](https://github.com/TylerGarlick/wrecked).
+A convenient, modern request library built around Wreck.
 
 ## Overview
 
-A simple wrapper around [Wreck](https://github.com/hapijs/wreck) providing a more convenient Promise / async interface.
+A simple wrapper around [Wreck](https://github.com/hapijs/wreck) providing consistent error responses, status code validations, and hashing options.
 
-This more or less duplicates the behavior of [Wrecked](https://github.com/TylerGarlick/wrecked) but is a substantial rewrite for fun, to get test coverage up, and because I like the name Wreckage. I also had a few very specific use cases and needed to add some features. Sorry world.
+(Wreck was recently updated to support async/await natively, eliminating my original need for this module, but the sugar is still handy)
 
 ## Installation
 
 *NPM*
 
 ```bash
-$ npm install wrecked --save
+$ npm install wreckage --save
 ```
 
 *Yarn*
 
 ```bash
-$ yarn add wrecked
+$ yarn add wreckage
 ```
 
 ## Usage
@@ -108,13 +108,14 @@ Access the defaults for the instance
 
 `request` and `read` are passed directly to Wreck, so, you get the same options.
 
-* [Wreck request](https://github.com/hapijs/wreck#requestmethod-uri-options-callback)
-* [Wreck read](https://github.com/hapijs/wreck#readresponse-options-callback)
+*   [Wreck request](https://github.com/hapijs/wreck#requestmethod-uri-options-callback)
+*   [Wreck read](https://github.com/hapijs/wreck#readresponse-options-callback)
 
 Additionally, you'll find:
 
-* `errorHandling` which allows you to define `return`, to return, rather than throw your errors
-* `validateStatus` allows you to validate the statusCode of your response, to determine what will actually trigger an error
+*   `errorHandling` which allows you to define `return`, to return, rather than throw your errors
+*   `validateStatus` allows you to validate the statusCode of your response, to determine what will actually trigger an error
+*   `read.hash` you can optionally have a has generated with your payload. Uses  `crypto.createHash` so all hash types supported there are available. Default is `sha1`
 
 This is an example, and these are the defaults.
 
@@ -164,4 +165,4 @@ As mentioned above, can be returned or thrown. They get wrapped by [Boom](https:
 
 ## TODO
 
-* One line is missing from code coverage!!!
+*   Test coverage
