@@ -1,4 +1,4 @@
-import boom from 'boom';
+import Boom from 'boom';
 import wreck from 'wreck';
 import read from './read';
 import defaults from './defaults';
@@ -8,13 +8,13 @@ const wrapError = (err, data) => {
     Object.assign(err, {data});
   }
 
-  if (err.isBoom) {
+  if (Boom.isBoom(err)) {
     return err;
   }
 
   const statusCode = data.statusCode >= 400 ? data.statusCode : 500;
 
-  return boom.wrap(err, statusCode, data.statusMessage);
+  return Boom.boomify(err, {statusCode, message: data.statusMessage});
 };
 
 const request = async (method, uri, options = {}) => {
@@ -57,10 +57,12 @@ const request = async (method, uri, options = {}) => {
         output.payload = output.payload.toString();
       }
 
-      throw boom.create(
-        output.statusCode,
+      throw new Boom(
         output.statusMessage,
-        output
+        {
+          statusCode: output.statusCode,
+          data: output
+        }
       );
     }
 
